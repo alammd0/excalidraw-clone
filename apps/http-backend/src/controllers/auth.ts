@@ -1,4 +1,6 @@
 import { Request } from "express";
+import { CreateUserSchema } from "@repo/common/types";
+
 
 export const signup = async (req: Request) => {
     try{
@@ -14,6 +16,6 @@ export const login = async (req: Request) => {
 
     }
     catch(error){
-        
+
     }
 }
