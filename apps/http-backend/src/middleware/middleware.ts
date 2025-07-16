@@ -31,7 +31,8 @@ export const middleware = async (
 
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
-      (req as any).admin = decoded;
+      console.log(decoded);
+      (req as any).user = decoded;
       next();
     } catch (err) {
       return res.status(401).json({

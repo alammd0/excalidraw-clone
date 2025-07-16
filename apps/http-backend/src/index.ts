@@ -1,9 +1,11 @@
 import express from "express"; 
-import AuthRoutes from "./routes/authRoutes"
+import authRoutes from "./routes/authRoutes"
+import roomRoutes from "./routes/roomRoutes"
 
 const app = express();
 app.use(express.json());
 
-app.use("/api/v1/auth", AuthRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/room", roomRoutes);
 
-app.listen(5000, () => console.log("http-backend listening on port 3000"));
+app.listen(5000, () => console.log("http-backend listening on port 5000"));
