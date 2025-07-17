@@ -15,3 +15,7 @@ export const LoginUserSchema = z.object({
 export const roomSchema = z.object({
   name: z.string(),
 });
+
+export type CreateUser = z.infer<typeof CreateUserSchema>;
+export type LoginUser = z.infer<typeof LoginUserSchema>;
+export type Room = z.infer<typeof roomSchema>;
