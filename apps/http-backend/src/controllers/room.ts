@@ -96,7 +96,7 @@ export const getChat = async (req: Request, res: Response) => {
             take : 30
         });
 
-        console.log("Chat details - ", chat);
+        // console.log("Chat details - ", chat);
         
         return res.status(200).json({
             success : true,

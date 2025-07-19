@@ -108,9 +108,7 @@ export const login = async (req: Request, res : Response) => {
         username : userExists.username
     }
 
-    const token = jwt.sign(payload , JWT_SECRET, {
-        expiresIn : "1h"
-    });
+    const token = jwt.sign(payload , JWT_SECRET);
 
     res.status(200).json({
         success : true,
