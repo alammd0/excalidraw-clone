@@ -18,6 +18,7 @@ export const signup = async (req: Request, res: Response) => {
     }
 
     const { username, email, name, password } = user.data;
+    
     // check user exits or not
     const userExists = await prisma.user.findUnique({
       where: {
@@ -34,7 +35,6 @@ export const signup = async (req: Request, res: Response) => {
 
     // hashed the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(hashedPassword);
 
     const newUser = await prisma.user.create({
       data: {
@@ -65,12 +65,13 @@ export const signup = async (req: Request, res: Response) => {
 export const login = async (req: Request, res : Response) => {
   try {
 
+
     const user = LoginUserSchema.safeParse(req.body);
 
     if(!user.success){
         return res.status(400).json({
             success : false,
-            MessageChannel : "Invalid request",
+            message : "Invalid request",
             error : user.error.message
         })
     }
@@ -87,7 +88,7 @@ export const login = async (req: Request, res : Response) => {
     if(!userExists){
         return res.status(400).json({
             success : false,
-            MessageChannel : "User not found, Please Create Account"
+            message : "User not found, Please Create Account"
         })
     }
 
@@ -97,7 +98,7 @@ export const login = async (req: Request, res : Response) => {
     if(!isMatchPassword){
         return res.status(400).json({
             success : false,
-            MessageChannel : "Invalid Password"
+            message : "Invalid Password"
         })
     };
 
@@ -112,7 +113,7 @@ export const login = async (req: Request, res : Response) => {
 
     res.status(200).json({
         success : true,
-        MessageChannel : "Login Successfully",
+        message : "Login Successfully",
         data : {
             user : userExists,
             token : token
@@ -124,7 +125,7 @@ export const login = async (req: Request, res : Response) => {
     console.error(error);
     return res.status(504).json({
         success : false,
-        MessageChannel : "Something went wrong",
+        message : "Something went wrong",
         error : error.message
     })
   }
