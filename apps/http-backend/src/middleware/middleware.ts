@@ -14,7 +14,7 @@ export const middleware = async (
       req.cookies?.token;
 
     // console.log("token is missing", token);
-
+    
     if (!token) {
       return res.status(401).json({
         status: false,

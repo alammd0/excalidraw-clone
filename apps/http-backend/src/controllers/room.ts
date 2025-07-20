@@ -14,7 +14,7 @@ export const createRoom = async (req: Request, res: Response) => {
         });
     }
 
-    const { name } = room.data;
+    const { name, description } = room.data;
 
     // check room exits or not 
     const roomExists = await prisma.room.findUnique({
@@ -46,6 +46,7 @@ export const createRoom = async (req: Request, res: Response) => {
     const roomData = await prisma.room.create({
         data : {
             slug : name,
+            description : description,
             adminId : userId
         }
     });
@@ -64,6 +65,34 @@ export const createRoom = async (req: Request, res: Response) => {
     })
   }
 };
+
+export const getRooms = async (req: Request, res:Response) => {
+    try{
+        const rooms =  await prisma.room.findMany({});
+
+        if(!rooms){
+            return res.status(400).json({
+                success : false,
+                message : "Room not found"
+            })
+        }
+
+        return res.status(200).json({
+            success : true,
+            message : "Rooms Fetched Successfully",
+            data : rooms
+        })
+
+    }
+    catch(error){
+        console.error(error);
+        return res.status(200).json({
+            success : false,
+            message : "Something went wrong"
+        })
+    }
+}
+
 
 // get chat using roomId and limit least 10
 export const getChat = async (req: Request, res: Response) => {

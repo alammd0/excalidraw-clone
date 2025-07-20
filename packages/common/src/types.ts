@@ -14,4 +14,5 @@ export const LoginUserSchema = z.object({
 
 export const roomSchema = z.object({
   name: z.string(),
+  description: z.string().optional(),
 });
